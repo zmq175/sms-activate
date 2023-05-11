@@ -38,7 +38,7 @@ def get_verify_code():
         MobileVerifyCode.mobile_number == mobile_number
     ).order_by(MobileVerifyCode.update_time.desc()).first()[0]
     now = datetime.now()
-    if last_sent_time and (now - last_sent_time).total_seconds() < SEND_VERIFY_CODE_INTERVAL:
+    if last_sent_time is not None and (now - last_sent_time).total_seconds() < SEND_VERIFY_CODE_INTERVAL:
         return jsonify({'error': '发送验证码太频繁，请稍后再试'})
 
     # 判断当前用户是否有未过期的验证码
