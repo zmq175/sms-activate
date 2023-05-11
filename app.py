@@ -36,7 +36,7 @@ def get_verify_code():
     # 判断距离上次发送短信的时间是否超过60秒
     last_sent_time = db.query(MobileVerifyCode.update_time).filter(
         MobileVerifyCode.mobile_number == mobile_number
-    ).order_by(MobileVerifyCode.update_time.desc()).first()[0]
+    ).order_by(MobileVerifyCode.update_time.desc()).first()
     now = datetime.now()
     if last_sent_time is not None and (now - last_sent_time).total_seconds() < SEND_VERIFY_CODE_INTERVAL:
         return jsonify({'error': '发送验证码太频繁，请稍后再试'})
