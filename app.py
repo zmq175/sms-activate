@@ -80,7 +80,7 @@ def index():
 
 @app.errorhandler(Exception)
 def handle_exception(error):
-    logging.error(str(error))
+    logging.exception(str(error))
     response = jsonify({'error': str(error)})
     response.status_code = 500
     return response
