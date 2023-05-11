@@ -73,6 +73,7 @@
             remainingSeconds--;
             if (remainingSeconds <= 0) {
                 sendCodeButton.disabled = false;
+                sendCodeButton.textContent = `重新发送验证码`;
                 clearInterval(timer);
             } else {
                 updateSendCodeButtonCaption();
