@@ -45,7 +45,7 @@ def get_verify_code():
     last_verify_code = db.query(MobileVerifyCode.verify_code, MobileVerifyCode.update_time).filter(
         MobileVerifyCode.mobile_number == mobile_number
     ).order_by(MobileVerifyCode.update_time.desc()).first()
-    if last_verify_code and (now - last_verify_code.update_time).total_seconds() < VERIFY_CODE_EXPIRE_TIME:
+    if last_verify_code is not None and (now - last_verify_code.update_time).total_seconds() < VERIFY_CODE_EXPIRE_TIME:
         return jsonify({'error': '您的验证码还未过期，请勿重复获取'})
 
     # 发送验证码
