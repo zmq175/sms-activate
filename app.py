@@ -75,6 +75,15 @@ def validate_code():
     return jsonify({'succeed': True, 'message': 'OK'})
 
 
+@app.route('/api/check_user', methods=['POST'])
+def check_user():
+    account = request.json.get('account')
+    user = db.query(UserInfo).filter(UserInfo.user_account == account).first()
+    if user is not None:
+        return jsonify({'exists': True, 'message': 'OK'})
+    return jsonify({'exists': False, 'message': 'OK'})
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
